@@ -1,9 +1,17 @@
 const std = @import("std");
 
-pub fn readFileAlloc(
+pub fn readInput(
     allocator: std.mem.Allocator,
-    path: []const u8,
+    day: u8,
 ) ![]u8 {
+    var path_buf: [64]u8 = undefined;
+
+    const path = try std.fmt.bufPrint(
+        &path_buf,
+        "input/day{d:0>2}.txt",
+        .{day},
+    );
+
     return std.fs.cwd().readFileAlloc(
         allocator,
         path,
@@ -11,36 +19,17 @@ pub fn readFileAlloc(
     );
 }
 
-pub fn readLines(
-    allocator: std.mem.Allocator,
-    path: []const u8,
-) !std.ArrayList([]const u8) {
-    const content = try readFileAlloc(
-        allocator,
-        path,
-    );
-
-    var lines = std.ArrayList([]const u8).init(allocator);
-
-    var it = std.mem.splitScalar(
-        u8,
-        content,
-        '\n',
-    );
-
-    while (it.next()) |line| {
-        try lines.append(
-            std.mem.trimRight(
-                u8,
-                line,
-                "\r",
-            ),
-        );
-    }
-
-    return lines;
+pub fn startTimer() std.time.Timer {
+    return std.time.Timer.start()
+        catch unreachable;
 }
 
-pub fn timer() std.time.Timer {
-    return std.time.Timer.start() catch unreachable;
+pub fn printResult(
+    part: u8,
+    result: anytype,
+) void {
+    std.debug.print(
+        "Part {}: {}\n",
+        .{ part, result },
+    );
 }
