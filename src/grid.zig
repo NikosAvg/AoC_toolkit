@@ -1,5 +1,3 @@
-const std = @import("std");
-
 pub const Point = struct {
     x: i32,
     y: i32,
@@ -15,14 +13,14 @@ pub const Point = struct {
     }
 };
 
-pub const DIRS4 = [_]Point{
+pub const dirs4 = [_]Point{
     .{ .x = 0, .y = -1 },
     .{ .x = 1, .y = 0 },
     .{ .x = 0, .y = 1 },
     .{ .x = -1, .y = 0 },
 };
 
-pub const DIRS8 = [_]Point{
+pub const dirs8 = [_]Point{
     .{ .x = -1, .y = -1 },
     .{ .x = 0, .y = -1 },
     .{ .x = 1, .y = -1 },
