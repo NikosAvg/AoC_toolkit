@@ -31,3 +31,9 @@ while (head < queue.items.len) {
         queue.items[head];
     head += 1;
 }
+
+pub const Result = union(enum) {
+    int: i64,
+    uint: u64,
+    string: []const u8,
+};
